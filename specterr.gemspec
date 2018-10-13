@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "specterr/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "specterr
+  spec.name          = "specterr"
   spec.version       = Specterr::VERSION
   spec.authors       = ["Gaurav Singh"]
   spec.email         = ["gaurav.singh@coupa.com"]
