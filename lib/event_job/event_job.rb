@@ -7,18 +7,50 @@ module EventJob
     include DatabaseConnection
 
     def perform(event)
-
       db = get_db_connection
-      db.execute("INSERT INTO spect_analytics (exception, method, path, line_no)
-            VALUES (?, ?, ?, ?)", [event.fetch(:exception,[]).join('-'), event[:method], event[:path], event[:line_no]])
+      if data[:exception].present?
+        err_object = data[:exception_object]
 
-      puts "=" * 80
-      puts event[:exception]
-      puts event[:method]
-      puts event[:path]
-      puts event[:view_runtime]
-      puts event[:db_runtime]
-      puts "=" * 80
+        path = data[:path]
+        params = data[:params]
+        method = data[:method]
+        format = data[:format]
+        db_runtime = data[:db_runtime]
+        view_runtime = data[:view_runtime]
+        line_no = data[:line_no]
+
+        header = data[:headers]
+        req_host = header.env['HTTP_HOST']
+        agent = header.env['HTTP_USER_AGENT']
+        ip_address = header.env['REMOTE_ADDR']
+
+        back_trace = err_object.backtrace.map do |trace|
+          trace if trace.start_with? Rails.root.to_s
+        end
+
+        query = <<-SQL
+        INSERT INTO spect_analytics(
+          exception, method, path, back_trace, params,
+          format, db_runtime, view_runtime, req_host, agent,
+          ip_address, line_no, created_at)
+        VALUES (#{event.fetch(:exception,[]).join('-')}, 
+                #{method},
+                #{path},
+                #{back_trace},
+                #{params},
+                #{format},
+                #{db_runtime},
+                #{view_runtime},
+                #{req_host},
+                #{agent},
+                #{ip_address},
+                #{line_no},
+                #{Time.current})
+        SQL
+
+        db.execute(query)
+
+      end
     end
   end
 end

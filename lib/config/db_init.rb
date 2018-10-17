@@ -13,13 +13,22 @@ module DbInit
     # Create a table
     if table_name.blank?
       db.execute <<-SQL
-        create table spect_analytics (
-          id          INTEGER   PRIMARY KEY   AUTOINCREMENT,
-          exception   TEXT      NOT NULL,
-          method      TEXT,
-          path        TEXT,
-          line_no     INT
-        );
+    create table spect_analytics (
+      id              INTEGER   PRIMARY KEY   AUTOINCREMENT,
+      exception       TEXT      NOT NULL,
+      method          TEXT,
+      path            TEXT,
+      back_trace      TEXT,
+      params          TEXT,
+      format          TEXT,
+      db_runtime      TEXT,
+      view_runtime    TEXT,
+      req_host        TEXT,
+      agent           TEXT,
+      ip_address      TEXT,
+      line_no         INT,
+      created_at      DATETIME
+    );
       SQL
     end
   end
