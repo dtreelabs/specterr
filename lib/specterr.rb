@@ -22,14 +22,16 @@ require "sqlite3"
 # end
 
 module Specterr
-  class RailsInstrumentation < ::Rails::Railtie
-    extend DbInit
+  if defined?(::Rails::Railtie)
+    class RailsInstrumentation < ::Rails::Railtie
+      extend DbInit
 
-    intialize_db
+      intialize_db
 
-    config.after_initialize do
-      ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*args|
-        EventJob::EventTask.perform_async(args.extract_options!)
+      config.after_initialize do
+        ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*args|
+          EventJob::EventTask.perform_async(args.extract_options!)
+        end
       end
     end
   end

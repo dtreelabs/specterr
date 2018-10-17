@@ -1,3 +1,4 @@
+require "sucker_punch"
 require "bundler/setup"
 require "specterr"
 
