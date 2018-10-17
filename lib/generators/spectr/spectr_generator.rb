@@ -1,7 +1,7 @@
 require 'rails/generators/base'
 
 
-class SpectrGenerator < Rails::Generators::NamedBase
+class SpectrGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def create_spectr_file
