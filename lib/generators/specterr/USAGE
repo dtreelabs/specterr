@@ -1,0 +1,8 @@
+Description:
+    Create specterr.yml in Rail.root/config folder which will be used by this gem to add database details
+
+Example:
+    rails generate specterr Thing
+
+    This will create:
+        specterr.yml in config folder
