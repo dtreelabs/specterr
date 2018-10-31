@@ -36,7 +36,7 @@ For using the gem from local folder to a rails project use -
 gem 'specterr', path: '<absolute path for developement folder>'
  
 # for example
-# gem 'specterr', path: '/usr/local/workspace/spectrr'
+# gem 'specterr', path: '/usr/local/workspace/specterr'
 ```
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
