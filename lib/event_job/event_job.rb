@@ -8,18 +8,18 @@ module EventJob
 
     def perform(event)
       db = get_db_connection
-      if data[:exception].present?
-        err_object = data[:exception_object]
+      if event[:exception].present?
+        err_object = event[:exception_object]
 
-        path = data[:path]
-        params = data[:params]
-        method = data[:method]
-        format = data[:format]
-        db_runtime = data[:db_runtime]
-        view_runtime = data[:view_runtime]
-        line_no = data[:line_no]
+        path = event[:path]
+        params = event[:params]
+        method = event[:method]
+        format = event[:format]
+        db_runtime = event[:db_runtime]
+        view_runtime = event[:view_runtime]
+        line_no = event[:line_no]
 
-        header = data[:headers]
+        header = event[:headers]
         req_host = header.env['HTTP_HOST']
         agent = header.env['HTTP_USER_AGENT']
         ip_address = header.env['REMOTE_ADDR']
@@ -33,22 +33,22 @@ module EventJob
           exception, method, path, back_trace, params,
           format, db_runtime, view_runtime, req_host, agent,
           ip_address, line_no, created_at)
-        VALUES (#{event.fetch(:exception,[]).join('-')}, 
-                #{method},
-                #{path},
-                #{back_trace},
-                #{params},
-                #{format},
-                #{db_runtime},
-                #{view_runtime},
-                #{req_host},
-                #{agent},
-                #{ip_address},
-                #{line_no},
-                #{Time.current})
+        VALUES ('#{event.fetch(:exception,[]).join('-')}', 
+                '#{method}',
+                '#{path}',
+                '#{PG::Connection.escape_string(back_trace.compact.join(", "))}',
+                '#{params}',
+                '#{format}',
+                '#{db_runtime}',
+                '#{view_runtime}',
+                '#{req_host}',
+                '#{agent}',
+                '#{ip_address}',
+                '#{line_no}',
+                '#{Time.current}')
         SQL
-
-        db.execute(query)
+        puts "Query: #{query}"
+        db.exec(query)
 
       end
     end

@@ -12,3 +12,4 @@
 
 #Ignore IDE preferences
 /.idea
+*.db
