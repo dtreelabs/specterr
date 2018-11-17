@@ -19,16 +19,16 @@ module DatabaseConfig
   end
 
   def db_config_file_exists?
-    File.exists? db_config_file_path
+    File.exist? db_config_file_path
   end
 
   def db_config_file_path
-    "#{Rails.root}/config/specterr.yml"
+    "./config/specterr.yml"
   end
 
   def default_config
     {
-      adapter: sqlite3,
+      adapter: 'sqlite3',
       pool: ENV.fetch("RAILS_MAX_THREADS") { 5 },
       timeout: 5000,
       database: "db/specterr-#{env}.db"
