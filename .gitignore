@@ -7,6 +7,9 @@
 /spec/reports/
 /tmp/
 
+# OS Generated files
+.DS_Store
+
 # rspec failure tracking
 .rspec_status
 

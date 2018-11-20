@@ -1,4 +1,5 @@
 require 'config/database_connection'
+require 'sucker_punch'
 
 module EventJob
 
