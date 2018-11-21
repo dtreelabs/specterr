@@ -1,0 +1,32 @@
+<!doctype html>
+<html dir="<%= text_direction %>">
+  <head>
+    <title> Spectacle Error : Your eyes on errors</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <link href="<%= root_path %>stylesheets/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <% if rtl? %>
+      <link href="<%= root_path %>stylesheets/bootstrap-rtl.min.css" media="screen" rel="stylesheet" type="text/css"/>
+    <% end %>
+
+    <link href="<%= root_path %>stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <% if rtl? %>
+      <link href="<%= root_path %>stylesheets/application-rtl.css" media="screen" rel="stylesheet" type="text/css" />
+    <% end %>
+
+    <link rel="shortcut icon" type="image/ico" href="<%= root_path %>images/favicon.ico" />
+    <script type="text/javascript" src="<%= root_path %>javascripts/application.js"></script>
+  </head>
+  <body>
+    <div id="page">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
