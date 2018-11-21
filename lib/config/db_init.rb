@@ -24,22 +24,22 @@ module DbInit
     # Create a table
     unless table_exists
       db.exec <<-SQL
-    create table spect_analytics (
-      id              SERIAL PRIMARY KEY,
-      exception       TEXT      NOT NULL,
-      method          TEXT,
-      path            TEXT,
-      back_trace      TEXT,
-      params          TEXT,
-      format          TEXT,
-      db_runtime      TEXT,
-      view_runtime    TEXT,
-      req_host        TEXT,
-      agent           TEXT,
-      ip_address      TEXT,
-      line_no         TEXT,
-      created_at      timestamp 
-    );
+        create table spect_analytics (
+          id              SERIAL    PRIMARY KEY,
+          exception       TEXT      NOT NULL,
+          method          TEXT,
+          path            TEXT,
+          back_trace      TEXT,
+          params          TEXT,
+          format          TEXT,
+          db_runtime      TEXT,
+          view_runtime    TEXT,
+          req_host        TEXT,
+          agent           TEXT,
+          ip_address      TEXT,
+          line_no         TEXT,
+          created_at      timestamp
+        );
       SQL
     end
   end
