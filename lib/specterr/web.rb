@@ -6,21 +6,24 @@ require 'rack/deflater'
 
 module Specterr
   class Web
+    require_relative '../specterr/services/errors_list_service'
+
     ROOT = File.expand_path("#{File.dirname(__FILE__)}/../../web")
     VIEWS = "#{ROOT}/views"
     LAYOUT = "#{VIEWS}/layout.erb"
     ASSETS = "#{ROOT}/assets"
 
+
     def self.call(env)
       req = Rack::Request.new(env)
       case req.path_info
         when '/'
-          @name = 'kapil bhosale'
+          @errors = Specterr::ErrorsListService.call
           template = File.read("#{VIEWS}/index.html.erb")
           content = render(template)
           ['200', {"Content-Type" => "text/html"}, [content]]
         when '/hello'
-          [200, {"Content-Type" => "text/html"}, ["Hello World!"]]
+          [200, {"Content-Type" => "text/html"}, ["<html><head><title>TITLE ..</title></head><body><p>kapil</p></body></html>"]]
         when /goodbye/
           [500, {"Content-Type" => "text/html"}, ["Goodbye Cruel World!"]]
         else
@@ -36,7 +39,7 @@ module Specterr
     end
 
     private
-    def self.render(template)
+    def self.render_(template)
       layout = File.read("#{VIEWS}/layout.html.erb")
       [template, layout].inject(nil) do | prev, temp |
         _render(temp) { prev }
@@ -46,6 +49,18 @@ module Specterr
     def self._render temp
       ERB.new(temp).result(binding)
     end
+
+    def self.render(template)
+      render_layout do
+        ERB.new(template).result(binding)
+      end
+    end
+
+    def self.render_layout
+      layout = File.read("#{VIEWS}/layout.html.erb")
+      ERB.new(layout).result(binding)
+    end
+
   end
 end
 
