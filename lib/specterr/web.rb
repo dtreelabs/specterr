@@ -18,7 +18,7 @@ module Specterr
       req = Rack::Request.new(env)
       case req.path_info
         when '/'
-          @errors = Specterr::ErrorsListService.call
+          @errors = Specterr::ErrorsListService.new.call
           template = File.read("#{VIEWS}/index.html.erb")
           content = render(template)
           ['200', {"Content-Type" => "text/html"}, [content]]
