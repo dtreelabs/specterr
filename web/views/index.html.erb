@@ -4,5 +4,5 @@
 </p>
 <p class="text-danger">.text-danger</p>
 <% @errors.each do |error| %>
-    <%= error[:id] %> | <%= error[:name]%>
+    <%= error[0] %> | <%= error[1] %> | <%= error[2] %>
 <% end %>
