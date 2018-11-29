@@ -24,7 +24,10 @@ module Specterr
           ['200', {"Content-Type" => "text/html"}, [content]]
         when /errors\/\d+/
           id = req.path_info.match(/\d+/)[0].to_i
-          [200, {"Content-Type" => "text/html"}, ["<html><head><title>TITLE ..</title></head><body><p>id passed is : #{id}</p></body></html>"]]
+          @error = Specterr::ErrorsListService.new.find_by_id(id)
+          template = File.read("#{VIEWS}/show.html.erb")
+          content = render(template)
+          ['200', {"Content-Type" => "text/html"}, [content]]
         when /goodbye/
           [500, {"Content-Type" => "text/html"}, ["Goodbye Cruel World!"]]
         else

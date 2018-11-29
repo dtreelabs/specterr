@@ -1,0 +1,67 @@
+<div class="container">
+
+  <div class="row mt-5 mb-5">
+    <div class="col-md-12">
+      <h5 class='text-primary'> #<%= "#{@error['id']} #{@error['exception']}" %> </h5>
+      <hr />
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead class="bg-info">
+      <tr>
+        <th> Field </th>
+        <th> Value </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Method</td>
+          <td><%= @error["method"] %></td>
+        <tr/>
+        <tr>
+          <td>Path</td>
+          <td><%= @error["path"] %></td>
+        <tr/>
+        <tr>
+          <td>Back_trace</td>
+          <td><%= @error["back_trace"] %></td>
+        <tr/>
+        <tr>
+          <td>Params</td>
+          <td><%= @error["params"] %></td>
+        <tr/>
+        <tr>
+          <td>Format</td>
+          <td><%= @error["format"] %></td>
+        <tr/>
+        <tr>
+          <td>DB Runtime</td>
+          <td><%= @error["db_runtime"] %></td>
+        <tr/>
+        <tr>
+          <td>View Runtime</td>
+          <td><%= @error["view_runtime"] %></td>
+        <tr/>
+        <tr>
+          <td>Request Host</td>
+          <td><%= @error["req_host"] %></td>
+        <tr/>
+        <tr>
+          <td>Agent</td>
+          <td><%= @error["agent"] %></td>
+        <tr/>
+        <tr>
+          <td>IP Address</td>
+          <td><%= @error["ip_address"] %></td>
+        <tr/>
+        <tr>
+          <td>Line No</td>
+          <td><%= @error["line_no"] %></td>
+        <tr/>
+        <tr>
+          <td>Date</td>
+          <td><%= @error["created_at"] %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>

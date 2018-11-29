@@ -1,8 +1,24 @@
-<h2>Hello World!</h2>
-<p>
-  <%= @name %>
-</p>
+
 <p class="text-danger">.text-danger</p>
-<% @errors.each do |error| %>
-    <%= error[0] %> | <%= error[1] %> | <%= error[2] %>
-<% end %>
+<div class="container">
+  <table class="table table-hover">
+    <thead class="bg-info">
+      <tr>
+        <th>Date</th>
+        <th>Error</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @errors.each do |error| %>
+          <tr>
+            <td><%= error["created_at"] %></td>
+            <td class="text-*-info">
+              <a href="specterr/errors/<%= error['id'] %>">
+                <%= error["exception"] %>
+              </a>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
