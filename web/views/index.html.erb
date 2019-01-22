@@ -1,0 +1,24 @@
+
+<p class="text-danger">.text-danger</p>
+<div class="container">
+  <table class="table table-hover">
+    <thead class="bg-info">
+      <tr>
+        <th>Date</th>
+        <th>Error</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @errors.each do |error| %>
+          <tr>
+            <td><%= error["created_at"] %></td>
+            <td class="text-*-info">
+              <a href="specterr/errors/<%= error['id'] %>">
+                <%= error["exception"] %>
+              </a>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
