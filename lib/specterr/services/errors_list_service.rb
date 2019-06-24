@@ -11,7 +11,7 @@ module Specterr
                     SELECT * from spect_analytics
                  SQL
                else
-                 db.exec <<-SQL
+                 db.execute <<-SQL
                     SELECT * from spect_analytics
                  SQL
                end
@@ -26,7 +26,7 @@ module Specterr
                     where id = '#{id}'
                  SQL
                else
-                 db.exec <<-SQL
+                 db.execute <<-SQL
                     SELECT * from spect_analytics
                     where id = '#{id}'
                  SQL

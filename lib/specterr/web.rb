@@ -67,11 +67,3 @@ module Specterr
 
   end
 end
-
-
-# app = Rack::Builder.new do
-#   use Rack::Deflater        # GZip
-#   run Specterr::Web
-# end
-#
-# Rack::Server.start :app => app
