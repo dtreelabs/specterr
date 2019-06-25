@@ -3,15 +3,17 @@ PATH
   specs:
     specterr (0.1.0)
       pg
+      rack
       sqlite3 (~> 1.3, >= 1.3.11)
       sucker_punch (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.5)
     diff-lcs (1.3)
-    pg (1.1.3)
+    pg (1.1.4)
+    rack (2.0.7)
     rake (10.5.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -26,8 +28,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    sqlite3 (1.3.13)
-    sucker_punch (2.1.1)
+    sqlite3 (1.4.1)
+    sucker_punch (2.1.2)
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
@@ -40,4 +42,4 @@ DEPENDENCIES
   specterr!
 
 BUNDLED WITH
-   1.16.4
+   1.17.2
