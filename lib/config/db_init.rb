@@ -4,6 +4,7 @@ module DbInit
   include DatabaseConnection
 
   def intialize_db
+    return unless db_config_file_exists?
     db = get_db_connection
 
     if db.class == PG::Connection
