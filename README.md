@@ -31,10 +31,10 @@ gem "specterr", git: "https://github.com/dtreelabs/specterr.git"
 
 ## Development
 
-For using the gem from local folder to a rails project use - 
+For using the gem from local folder to a rails project use -
 ```ruby
 gem 'specterr', path: '<absolute path for developement folder>'
- 
+
 # for example
 # gem 'specterr', path: '/usr/local/workspace/specterr'
 ```
@@ -45,7 +45,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/dtreelabs/specterr. Please refer [Getting Started](https://github.com/dtreelabs/specterr/wiki) wiki page to setup Specterr for development. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/dtreelabs/specterr. Please refer [Getting Started](https://github.com/dtreelabs/specterr/wiki/Getting-Started) wiki page to setup Specterr for development. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
