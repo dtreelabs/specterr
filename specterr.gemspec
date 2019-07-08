@@ -6,12 +6,12 @@ require "specterr/version"
 Gem::Specification.new do |spec|
   spec.name          = "specterr"
   spec.version       = Specterr::VERSION
-  spec.authors       = ["Gaurav Singh"]
-  spec.email         = ["gaurav.singh@coupa.com"]
+  spec.authors       = ["Gaurav Singh, Kapil Bhoale, Akshay Mohite"]
+  spec.email         = ["gaurav.singh@coupa.com, kapil@dtreelabs.com, akshay@dtreelabs.com"]
 
   spec.summary       = "Test"
   spec.description   = "Test"
-  spec.homepage      = "http://mygemserver.com"
+  spec.homepage      = "http://specterr.dtreelabs.com"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
