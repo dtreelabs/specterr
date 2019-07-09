@@ -31,7 +31,9 @@ module Specterr
         when /goodbye/
           [500, {"Content-Type" => "text/html"}, ["Goodbye Cruel World!"]]
         else
-          [404, {"Content-Type" => "text/html"}, ["I'm Lost!"]]
+          template = File.read("#{VIEWS}/404.html.erb")
+          content = render(template)
+          [404, {"Content-Type" => "text/html"}, [content]]
       end
     end
 
