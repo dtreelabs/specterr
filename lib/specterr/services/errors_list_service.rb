@@ -10,10 +10,12 @@ module Specterr
       result = if db.class == PG::Connection
                  db.exec <<-SQL
                     SELECT * from spect_analytics
+                    ORDER BY created_at DESC
                  SQL
                else
                  db.execute <<-SQL
                     SELECT * from spect_analytics
+                    ORDER BY created_at DESC
                  SQL
                end
       result.map {|row| row }
