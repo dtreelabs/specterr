@@ -1,4 +1,5 @@
-<div class="container">
+<div>
+  <%= ERB.new(File.read("#{Specterr::Web.settings[:views]}/_graphs.html.erb")).result %>
   <table class="table table-hover">
     <thead class="bg-info">
       <tr>

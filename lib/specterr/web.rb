@@ -21,19 +21,19 @@ module Specterr
           @errors = Specterr::ErrorsListService.new.call
           template = File.read("#{VIEWS}/index.html.erb")
           content = render(template)
-          ['200', {"Content-Type" => "text/html"}, [content]]
+          Rack::Response.new(content)
         when /errors\/\d+/
           id = req.path_info.match(/\d+/)[0].to_i
           @error = Specterr::ErrorsListService.new.find_by_id(id)
           template = File.read("#{VIEWS}/show.html.erb")
           content = render(template)
-          ['200', {"Content-Type" => "text/html"}, [content]]
+          Rack::Response.new(content)
         when /goodbye/
-          [500, {"Content-Type" => "text/html"}, ["Goodbye Cruel World!"]]
+          Rack::Response.new("Goodbye Cruel World!", 500)
         else
           template = File.read("#{VIEWS}/404.html.erb")
           content = render(template)
-          [404, {"Content-Type" => "text/html"}, [content]]
+          Rack::Response.new(content, 404)
       end
     end
 
