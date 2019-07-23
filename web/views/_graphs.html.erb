@@ -1,0 +1,32 @@
+<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+<script type = "text/javascript">
+    google.charts.load('current', {packages: ['corechart']});     
+</script>
+
+<div id = "graph-container" style = "width: 100%; height: 300px; margin: 0 auto"> 
+</div>
+
+<script language = "JavaScript">
+    function drawChart() {
+      // Define the chart to be drawn.
+      <% data = [['Date', 'resolved', 'unresolved']] %>
+      <% 1.upto(60) do |dt| %>
+        <% data << ["#{dt} jan", rand(100), rand(100)] %>
+      <% end %>
+      var data = google.visualization.arrayToDataTable( <%= data %> );
+
+      var options = {
+        colors: ['DodgerBlue', 'gray'],
+        isStacked: true,
+        animation:{
+          duration: 1000,
+          easing: 'out',
+        }
+      }; 
+
+      // Instantiate and draw the chart.
+      var chart = new google.visualization.ColumnChart(document.getElementById('graph-container'));
+      chart.draw(data, options);
+    }
+    google.charts.setOnLoadCallback(drawChart);
+</script>

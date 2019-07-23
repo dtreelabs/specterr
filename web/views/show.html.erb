@@ -1,9 +1,17 @@
 <div class="container">
-
   <div class="row mt-5 mb-5">
     <div class="col-md-12">
-      <h5 class='text-primary'> #<%= "#{@error['id']} #{@error['exception']}" %> </h5>
-      <hr />
+      <h5 class='text-primary'> <%= "#{@error.exception}" %> </h5>
+      <hr/>
+      <% if @error.resolved != 't' %>
+        <a href= <%= "/specterr/errors/#{@error['id']}/resolve" %> class="btn btn-primary">
+          <i class="fas fa-check-circle"></i> Resolve 
+        </a>
+      <% else %>  
+        <a href="#" class="btn btn-success">
+          <i class="fas fa-check-double"></i> Resolved
+        </a> 
+      <% end %>  
     </div>
   </div>
   <table class="table table-hover">
@@ -24,11 +32,22 @@
         <tr/>
         <tr>
           <td>Back_trace</td>
-          <td><%= @error["back_trace"] %></td>
+          <td>
+            <% @error["back_trace"].split('|').each do |back_trace| %>
+              <% trace_file_n_line = back_trace.gsub("#{Rails.root.to_s}/", '') %>
+              <span> 
+                <%= "#{trace_file_n_line.split(':').first} (#{trace_file_n_line.split(':').second})" %> 
+              </span>
+              <br>
+            <% end %>
+            
+          </td>
         <tr/>
         <tr>
           <td>Params</td>
-          <td><%= @error["params"] %></td>
+          <td>
+            <%= @error["params"] %>
+          </td>
         <tr/>
         <tr>
           <td>Format</td>

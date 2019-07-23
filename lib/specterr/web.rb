@@ -7,6 +7,7 @@ require 'rack/deflater'
 module Specterr
   class Web
     require_relative '../specterr/services/errors_list_service'
+    require_relative '../specterr/services/error_resolve_service'
 
     ROOT = File.expand_path("#{File.dirname(__FILE__)}/../../web")
     VIEWS = "#{ROOT}/views"
@@ -21,17 +22,23 @@ module Specterr
           @errors = Specterr::ErrorsListService.new.call
           template = File.read("#{VIEWS}/index.html.erb")
           content = render(template)
-          ['200', {"Content-Type" => "text/html"}, [content]]
+          Rack::Response.new(content)
+        when /errors\/\d+\/resolve/
+          id = req.path_info.match(/\d+/)[0].to_i
+          @response = Specterr::ErrorResolveService.new(id).call
+          Rack::Response.new([], 301, {'location' => "/specterr/errors/#{id}"})
         when /errors\/\d+/
           id = req.path_info.match(/\d+/)[0].to_i
           @error = Specterr::ErrorsListService.new.find_by_id(id)
           template = File.read("#{VIEWS}/show.html.erb")
           content = render(template)
-          ['200', {"Content-Type" => "text/html"}, [content]]
+          Rack::Response.new(content)
         when /goodbye/
-          [500, {"Content-Type" => "text/html"}, ["Goodbye Cruel World!"]]
+          Rack::Response.new("Goodbye Cruel World!", 500)
         else
-          [404, {"Content-Type" => "text/html"}, ["I'm Lost!"]]
+          template = File.read("#{VIEWS}/404.html.erb")
+          content = render(template)
+          Rack::Response.new(content, 404)
       end
     end
 

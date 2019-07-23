@@ -11,7 +11,6 @@ module EventJob
       db = get_db_connection
       if event[:exception].present?
         err_object = event[:exception_object]
-
         path = event[:path]
         params = event[:params]
         method = event[:method]
@@ -37,7 +36,7 @@ module EventJob
         VALUES ('#{PG::Connection.escape_string event.fetch(:exception,[]).join('-')}',
                 '#{PG::Connection.escape_string method}',
                 '#{PG::Connection.escape_string path}',
-                '#{PG::Connection.escape_string back_trace.compact.join(", ")}',
+                '#{PG::Connection.escape_string back_trace.compact.join(" | ")}',
                 '#{params[:controller]} - #{params[:action]}',
                 '#{PG::Connection.escape_string format.to_s}',
                 '#{PG::Connection.escape_string db_runtime.to_s}',

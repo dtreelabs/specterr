@@ -12,17 +12,17 @@
       rel="stylesheet"
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/11db5a8af2.js"></script>  
+    <style>
+      <% ['theme.min', 'application'].each do |css_file| %>
+        <%= File.read("#{Specterr::Web.settings[:root]}/assets/stylesheets/#{css_file}.css") %>
+      <% end %>
+    </style>
   </head>
   <body>
     <%= ERB.new(File.read("#{Specterr::Web.settings[:views]}/_header.html.erb")).result %>
-    <div id="page">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <%= yield %>
-          </div>
-        </div>
-      </div>
+    <div>
+      <%= yield %>      
     </div>
   </body>
 </html>
