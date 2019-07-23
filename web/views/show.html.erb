@@ -1,8 +1,17 @@
 <div class="container">
   <div class="row mt-5 mb-5">
     <div class="col-md-12">
-      <h5 class='text-primary'> <%= "#{@error['exception']}" %> </h5>
+      <h5 class='text-primary'> <%= "#{@error.exception}" %> </h5>
       <hr/>
+      <% if @error.resolved != 't' %>
+        <a href= <%= "/specterr/errors/#{@error['id']}/resolve" %> class="btn btn-primary">
+          <i class="fas fa-check-circle"></i> Resolve 
+        </a>
+      <% else %>  
+        <a href="#" class="btn btn-success">
+          <i class="fas fa-check-double"></i> Resolved
+        </a> 
+      <% end %>
     </div>
   </div>
   <table class="table table-hover">
