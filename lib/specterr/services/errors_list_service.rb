@@ -1,4 +1,5 @@
 require_relative '../../config/database_connection'
+require 'ostruct'
 
 module Specterr
   class ErrorsListService
@@ -31,7 +32,7 @@ module Specterr
                     where id = '#{id}'
                  SQL
                end
-      result.map {|row| row}.first
+      OpenStruct.new(result.map {|row| row}.first)
     end
   end
 end
