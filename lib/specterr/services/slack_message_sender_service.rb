@@ -1,23 +1,47 @@
 # frozen_string_literal: true
-require 'net/http'
-require 'uri'
-require 'json'
+  require 'net/http'
+  require 'uri'
+  require 'json'
 
 module Specterr
   class SlackMessageSenderService
-    def call(msg)
-    uri = URI.parse('https://hooks.slack.com/services/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')
-    
-    header = {'Content-Type': 'text/json'}
-    message = {text: msg} 
-    
-    # Create the HTTP objects
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Post.new(uri.request_uri, header)
-    request.body = message.to_json
-    
-    # Send the request
-    response = http.request(request)
+    attr_reader :msg_params
+
+    def initialize(msg_params)
+      @msg_params = msg_params
+    end
+
+    def call
+      uri = URI.parse(webhook_url)
+      request = Net::HTTP::Post.new(uri)
+      request.content_type = "application/json"
+      request.body = JSON.dump({
+        "text" => create_message
+      })
+
+      req_options = {
+        use_ssl: uri.scheme == "https",
+      }
+
+      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+        http.request(request)
+      end
+    end
+
+    private 
+
+    def webhook_url
+      ""
+    end
+
+    def create_message
+      "Following execption occured :
+      ```
+       #{msg_params[:exception]} \n
+       #{msg_params[:path]} : #{msg_params[:line_no]} \n
+       #{msg_params[:controller]} - #{msg_params[:action]} 
+      ```
+      "
     end
   end
 end

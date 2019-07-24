@@ -10,25 +10,25 @@ module EventJob
     require_relative '../specterr/services/slack_message_sender_service.rb'
 
     def perform(event)
-      save_exception(event)
-      
+      save_exception(event) 
       # make it based on config params
-      # send_slack_message(event)
+      send_slack_message(event)
     end
 
     private
+
     def save_exception(event)
       db = get_db_connection
       if event[:exception].present?
         exception_params = create_exception_params(event)
-        puts "================ 1"
         Specterr::ErrorsSaveService.new.call(exception_params)
       end
     end
 
     def send_slack_message(event)
       exception_params = create_exception_params(event)
-      Specterr::SlackMessageSenderService.call(exception_params)
+      puts "================ event_job 1"
+      Specterr::SlackMessageSenderService.new(exception_params).call
     end
 
     def create_exception_params(event)
