@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-1">
       <% if @error.resolved != 't' %>
-        <a href= <%= "/specterr/errors/#{@error['id']}/resolve" %> class="btn btn-primary btn-sm">
+        <a href= <%= "/#{@specterr_home_path}/errors/#{@error['id']}/resolve" %> class="btn btn-primary btn-sm">
           <i class="fas fa-check-circle"></i> Resolve 
         </a>
       <% else %>  

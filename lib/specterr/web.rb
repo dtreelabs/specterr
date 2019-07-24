@@ -17,6 +17,7 @@ module Specterr
 
     def self.call(env)
       req = Rack::Request.new(env)
+      @specterr_home_path = Rails.application.routes.url_helpers.specterr_web_path
       case req.path_info
         when '/'
           @errors = Specterr::ErrorsListService.new.call
@@ -26,7 +27,7 @@ module Specterr
         when /errors\/\d+\/resolve/
           id = req.path_info.match(/\d+/)[0].to_i
           @response = Specterr::ErrorResolveService.new(id).call
-          Rack::Response.new([], 301, {'location' => "/specterr/errors/#{id}"})
+          Rack::Response.new([], 301, {'location' => "/#{@specterr_home_path}/errors/#{id}"})
         when /errors\/\d+/
           id = req.path_info.match(/\d+/)[0].to_i
           @error = Specterr::ErrorsListService.new.find_by_id(id)
