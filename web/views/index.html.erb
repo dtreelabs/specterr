@@ -12,7 +12,7 @@
           <tr>
             <td><%= error["created_at"] %></td>
             <td class="text-*-info">
-              <a href="specterr/errors/<%= error['id'] %>">
+              <a href=<%="#{@specterr_home_path}/errors/#{error['id']}" %>>
                 <%= error["exception"] %>
               </a>
             </td>
