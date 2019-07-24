@@ -12,6 +12,9 @@ module DbInit
         SELECT EXISTS (SELECT 1 FROM   information_schema.tables where table_name = 'spect_analytics')
       SQL
       table_exists = result[0]['exists'] == 't'
+    elsif db.class == Mysql2::Client
+      result = db.query("SELECT EXISTS (SELECT 1 FROM   information_schema.tables where table_name = 'spect_analytics')")
+      table_exists = result.first.values[0] == 1
     else
       table_name = db.execute <<-SQL
         SELECT name FROM sqlite_master WHERE type='table' AND name='spect_analytics';
@@ -24,7 +27,7 @@ module DbInit
 
     # Create a table
     unless table_exists
-      db.exec <<-SQL
+      query = <<-SQL
         create table spect_analytics (
           id              SERIAL    PRIMARY KEY,
           exception       TEXT      NOT NULL,
@@ -43,6 +46,12 @@ module DbInit
           created_at      timestamp
         );
       SQL
+      # since exec is a private method for the mysql adapter
+      if db.class == PG::Connection || db.class == SQLite3::Database
+        db.exec query
+      elsif db.class == Mysql2::Client
+        db.query query
+      end
     end
   end
 end
