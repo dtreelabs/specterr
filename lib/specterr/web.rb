@@ -20,7 +20,7 @@ module Specterr
       @specterr_home_path = Rails.application.routes.url_helpers.specterr_web_path
       case req.path_info
         when '/'
-          @errors = Specterr::ErrorsListService.new.call
+          @data = Specterr::ErrorsListService.new.call
           template = File.read("#{VIEWS}/index.html.erb")
           content = render(template)
           Rack::Response.new(content)

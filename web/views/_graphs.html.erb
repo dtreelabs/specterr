@@ -10,8 +10,8 @@
     function drawChart() {
       // Define the chart to be drawn.
       <% data = [['Date', 'resolved', 'unresolved']] %>
-      <% 1.upto(60) do |dt| %>
-        <% data << ["#{dt} jan", rand(100), rand(100)] %>
+      <% @data[:error_graph_data].each do |record| %>
+        <% data << [Date.parse(record["date"]).strftime('%d-%b-%y'), record["resolved"].to_i, record["unresolved"].to_i] %>
       <% end %>
       var data = google.visualization.arrayToDataTable( <%= data %> );
 

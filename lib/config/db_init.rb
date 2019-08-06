@@ -39,7 +39,7 @@ module DbInit
           agent           TEXT,
           ip_address      TEXT,
           line_no         TEXT,
-          resolved        boolean,
+          resolved        boolean DEFAULT false,
           created_at      timestamp
         );
       SQL

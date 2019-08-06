@@ -1,5 +1,5 @@
 <div>
-  <%= ERB.new(File.read("#{Specterr::Web.settings[:views]}/_graphs.html.erb")).result %>
+  <%= ERB.new(File.read("#{Specterr::Web.settings[:views]}/_graphs.html.erb")).result(binding) %>
   <table class="table table-hover">
     <thead class="bg-info">
       <tr>
@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @errors.each do |error| %>
+      <% @data[:errors_list].each do |error| %>
           <tr>
             <td><%= error["created_at"] %></td>
             <td class="text-*-info">
