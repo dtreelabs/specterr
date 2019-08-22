@@ -32,7 +32,7 @@ module EventJob
         INSERT INTO spect_analytics(
           exception, method, path, back_trace, params,
           format, db_runtime, view_runtime, req_host, agent,
-          ip_address, line_no, created_at)
+          ip_address, line_no)
         VALUES ('#{PG::Connection.escape_string event.fetch(:exception,[]).join('-')}',
                 '#{PG::Connection.escape_string method}',
                 '#{PG::Connection.escape_string path}',
@@ -44,13 +44,24 @@ module EventJob
                 '#{PG::Connection.escape_string req_host.to_s}',
                 '#{PG::Connection.escape_string agent.to_s}',
                 '#{PG::Connection.escape_string ip_address.to_s}',
-                '#{PG::Connection.escape_string line_no.to_s}',
-                '#{Time.current}')
+                '#{PG::Connection.escape_string line_no.to_s}')
         SQL
         puts "Query: #{query}"
-        db.exec(query)
+        if mysql_connection?(db)
+          db.query query
+        else
+          db.exec(query)
+        end
 
       end
+    end
+
+    def pg_connection?(db)
+      db.class == PG::Connection
+    end
+
+    def mysql_connection?(db)
+      db.class == Mysql2::Client
     end
   end
 end

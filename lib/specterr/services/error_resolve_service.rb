@@ -1,4 +1,5 @@
 require_relative '../../config/database_connection'
+require 'pry'
 
 module Specterr
   class ErrorResolveService
@@ -11,30 +12,31 @@ module Specterr
     end
 
     def call
-      result = db.exec sql_query
-      OpenStruct.new(result.map {|row| row}.first)
+      result = []
+      if mysql_connection?
+        result = db.query(sql_query)
+      else
+        result = db.exec sql_query
+        OpenStruct.new(result.map {|row| row}.first)
+      end
     end
 
     private
 
     def sql_query
-      if pg_connection?
-        <<-SQL
-          UPDATE spect_analytics 
-          SET resolved = true
-          WHERE id = #{error_id}
-        SQL
-      else
-        <<-SQL
-          UPDATE spect_analytics 
-          SET resolved = true
-          WHERE id = #{error_id}
-        SQL
-      end
+      <<-SQL
+        UPDATE spect_analytics 
+        SET resolved = true
+        WHERE id = #{error_id}
+      SQL
     end
 
     def pg_connection?
       db.class == PG::Connection
+    end
+
+    def mysql_connection?
+      db.class == Mysql2::Client
     end
   end
 end

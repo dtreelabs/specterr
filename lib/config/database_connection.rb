@@ -16,6 +16,8 @@ module DatabaseConnection
       valid_param_keys = PG::Connection.conndefaults_hash.keys + [:requiressl]
       config.slice!(*valid_param_keys)
       @db ||= PG::Connection.new(config)
+    elsif config.dig(:adapter) == 'mysql2'
+      @db ||= Mysql2::Client.new(config)
     else
       @db ||= SQLite3::Database.open("spectacles-#{Rails.env}.db")
     end

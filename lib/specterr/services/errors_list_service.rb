@@ -1,5 +1,6 @@
 require_relative '../../config/database_connection'
 require 'ostruct'
+require 'pry'
 
 module Specterr
   class ErrorsListService
@@ -21,10 +22,7 @@ module Specterr
                     where id = '#{id}'
                  SQL
                else
-                 db.execute <<-SQL
-                    SELECT * from spect_analytics
-                    where id = '#{id}'
-                 SQL
+                db.execute query
                end
       OpenStruct.new(result.map {|row| row}.first)
     end
