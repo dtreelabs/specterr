@@ -12,6 +12,10 @@ module Specterr
         ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*args|
           EventJob::EventTask.perform_async(args.extract_options!)
         end
+
+        ActiveSupport::Notifications.subscribe "sql.active_record" do |*args|
+          EventJob::EventTask.perform_async(args.extract_options!)
+        end
         
         ActiveSupport::Notifications.subscribe "deprecation.rails" do |*args|
           puts "============= Deprecation ========================="
